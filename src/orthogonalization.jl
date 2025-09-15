@@ -17,13 +17,14 @@ function gramschmidt!(matrix::Matrix{UInt8})
         if r_ii ≈ 0
             q_i = zeros(size(matrix, 1))
         end
-        q_i = matrix[:, 1] / r_ii
+        q_i = matrix[:, i] / r_ii
         j = i + 1
         for j in eachindex(matrix)
-            
+            r_ij = dot(transpose(q_i), temp[:, j])
+            matrix[:,j] = temp[:,j] - r_ij*q_i
         end
     end
-    
+    return matrix
 
 
 end
